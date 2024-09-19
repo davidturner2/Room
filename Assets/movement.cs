@@ -10,11 +10,17 @@ public class movement : MonoBehaviour
 {
     private bool start = false;
     private bool trol = false;
-    private bool anotherboolean = true;
     private bool d;
     private bool u;
     private bool l;
     private bool r;
+    private bool ur;
+    private bool dr;
+    private bool dl;
+    private bool ul;
+    private bool godown;
+    private bool goup;
+    private bool anotherboolean = true;
     private float um;
     private Vector3 movetothis;
     public GameObject win;
@@ -32,8 +38,36 @@ public class movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(goup);
         if (start == true)
         {
+            if (godown && (trol = false))
+            {
+                print("Asdfgpork");
+                if (Input.GetKeyDown("down"))
+                {
+                   
+                        movelol(new Vector3(-1f, 0f, 0f));
+                        prev = new Vector3(1f, 0, 0f);
+                    
+                    godown = false;
+                }
+              
+            }
+            if (goup)
+            {
+                print("Asdfgpork");
+
+                if (Input.GetKeyDown("up"))
+                {
+                    print("asdfg");
+                   movelol(new Vector3(1f, 0f, 0f));
+                     prev = new Vector3(-1f, 0, 0f);
+                    goup = false;
+
+                }
+            }
+
             if (transform.position.y > -0.5)
             {
                 um = 5.01f * Time.deltaTime;
@@ -43,54 +77,91 @@ public class movement : MonoBehaviour
             {
                 start = false;
                 trol = true;
+                goup = false;
+                godown = false;
+
             }
         }
-        if (trol && anotherboolean)
+        if (trol)
         {
 
-
-
-            if (Input.GetKeyDown("up") && !u)
+            if (Input.GetKeyDown("up"))
             {
-                movelol(new Vector3(1f, 0f, 0f));
-                prev = new Vector3(-1f,0,0f);
-
+                if (ul || ur)
+                {
+                    trol = false;
+                }
+                if (!u)
+                {
+                    movelol(new Vector3(1f, 0f, 0f));
+                    prev = new Vector3(-1f, 0, 0f);
+                }
             }
-            if (Input.GetKeyDown("down") && !d)
+            else if (Input.GetKeyDown("down"))
             {
-                movelol(new Vector3(-1f, 0f, 0f));
-                                prev = new Vector3(1f,0,0f);
-
-
+                if (dl || dr)
+                {
+                    trol = false;
+                }
+                if (!d)
+                {
+                    movelol(new Vector3(-1f, 0f, 0f));
+                    prev = new Vector3(1f, 0, 0f);
+                }
             }
-            if (Input.GetKeyDown("left") && !l)
+            else if (Input.GetKeyDown("left"))
             {
-                movelol(new Vector3(0f, 0f, 1f));
-                                prev = new Vector3(0f,0,-1f);
-
-
+                if (dl)
+                {
+                    goup = true;
+                    trol = false;
+                }
+                if (ul)
+                {
+                    godown = true;
+                    trol = false;
+                }
+                if (!l)
+                {
+                    movelol(new Vector3(0f, 0f, 1f));
+                    prev = new Vector3(0f, 0, -1f);
+                }
             }
-            if (Input.GetKeyDown("right") && !r)
+            else if (Input.GetKeyDown("right"))
             {
-                movelol(new Vector3(0f, 0f, -1f));
-                                                prev = new Vector3(0f,0,1f);
-
+                if (dr || ur)
+                {
+                    trol = false;
+                }
+                if (!r)
+                {
+                    movelol(new Vector3(0f, 0f, -1f));
+                    prev = new Vector3(0f, 0, 1f);
+                }
             }
-             if (Input.GetKeyDown("space") && !r)
+            if (Input.GetKeyDown("space") && !r)
             {
                 moveback();
             }
 
-            if (transform.position.y <= -2)
-            {
-                anotherboolean = false;
-                lose.SetActive(true);
-                StartCoroutine("restart");
-            }
+
+        }
+        if (transform.position.y <= -2 && anotherboolean)
+        {
+            anotherboolean = false;
+            lose.SetActive(true);
+            StartCoroutine("restart");
         }
 
-
     }
+
+    private void movelol(Vector3 a)
+    {
+        movetothis = movetothis + a;
+        start = true;
+        //trol = false;
+    }
+
 
     void FixedUpdate()
     {
@@ -100,10 +171,22 @@ public class movement : MonoBehaviour
         Vector3 ra3 = new Vector3(movetothis.x, movetothis.y + 0.5f, movetothis.z - 0.5f);
         Vector3 ra4 = new Vector3(movetothis.x, movetothis.y + 0.5f, movetothis.z + 0.5f);
 
+        Vector3 ra32 = new Vector3(movetothis.x - 0.5f, movetothis.y + 0.5f, movetothis.z - 1f);
+        Vector3 ra332 = new Vector3(movetothis.x - 0.5f, movetothis.y + 0.5f, movetothis.z + 1f);
+
+        Vector3 ra42 = new Vector3(movetothis.x + 0.5f, movetothis.y + 0.5f, movetothis.z - 1f);
+        Vector3 ra442 = new Vector3(movetothis.x + 0.5f, movetothis.y + 0.5f, movetothis.z + 1f);
+
         RaycastHit down;
         RaycastHit up;
         RaycastHit left;
         RaycastHit right;
+        RaycastHit upleft;
+        RaycastHit upright;
+        RaycastHit downleft;
+        RaycastHit downright;
+
+
 
 
         // Does the ray intersect any objects excluding the player layer
@@ -117,6 +200,69 @@ public class movement : MonoBehaviour
             d = false;
             Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * 0.5f, Color.white);
         }
+
+
+        if (Physics.Raycast(ra32, transform.TransformDirection(Vector3.forward), out downright, 0.5f))
+        {
+            dr = true;
+            Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * downright.distance, Color.yellow);
+        }
+        else
+        {
+            dr = false;
+            Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * 0.5f, Color.red);
+        }
+
+
+
+        if (Physics.Raycast(ra332, transform.TransformDirection(Vector3.forward), out downleft, 0.5f))
+        {
+            dl = true;
+            Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * downleft.distance, Color.yellow);
+        }
+        else
+        {
+            dl = false;
+            Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * 0.5f, Color.green);
+        }
+
+
+
+
+        if (Physics.Raycast(ra42, transform.TransformDirection(Vector3.back), out upright, 0.5f))
+        {
+            ur = true;
+            Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * upright.distance, Color.yellow);
+        }
+        else
+        {
+            ur = false;
+            Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * 0.5f, Color.magenta);
+        }
+
+
+
+
+
+
+        if (Physics.Raycast(ra442, transform.TransformDirection(Vector3.back), out upleft, 0.5f))
+        {
+            ul = true;
+            Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * upleft.distance, Color.yellow);
+        }
+        else
+        {
+            ul = false;
+            Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * 0.5f, Color.cyan);
+        }
+
+
+
+
+
+
+
+
 
         if (Physics.Raycast(ra2, transform.TransformDirection(Vector3.back), out up, 0.5f))
         {
@@ -151,12 +297,7 @@ public class movement : MonoBehaviour
             Debug.DrawRay(ra4, transform.TransformDirection(Vector3.right) * 0.5f, Color.white);
         }
     }
-    private void movelol(Vector3 a)
-    {
-        movetothis = movetothis + a;
-        start = true;
-        //trol = false;
-    }
+
 
     IEnumerator begining()
     {
@@ -164,13 +305,13 @@ public class movement : MonoBehaviour
         start = true;
     }
 
-
     IEnumerator restart()
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(0);
     }
-    public void moveback(){
+    public void moveback()
+    {
         movelol(prev);
 
     }
