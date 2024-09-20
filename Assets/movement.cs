@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class movement : MonoBehaviour
 {
+    public AudioSource death;
     private bool start = false;
     private bool trol = false;
     private bool d;
@@ -18,78 +19,81 @@ public class movement : MonoBehaviour
     private bool dr;
     private bool dl;
     private bool ul;
-    private bool godown;
-    private bool goup;
+    private bool cantdown;
+    private bool cantup;
+    private bool cantleft;
+    private bool cantright;
+    private bool slow = false;
     private bool anotherboolean = true;
     private float um;
     private Vector3 movetothis;
     public GameObject win;
     public GameObject lose;
     private Vector3 prev;
+
     // Start is called before the first frame update
     void Start()
     {
 
 
-        movetothis = new Vector3(0f, 0.035f, 0f);
+        movetothis = new Vector3(0f, 0.35f, 0f);
         StartCoroutine("begining");
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(goup);
+
         if (start == true)
         {
-            if (godown && (trol = false))
-            {
-                print("Asdfgpork");
-                if (Input.GetKeyDown("down"))
-                {
-                   
-                        movelol(new Vector3(-1f, 0f, 0f));
-                        prev = new Vector3(1f, 0, 0f);
-                    
-                    godown = false;
-                }
-              
-            }
-            if (goup)
-            {
-                print("Asdfgpork");
 
-                if (Input.GetKeyDown("up"))
-                {
-                    print("asdfg");
-                   movelol(new Vector3(1f, 0f, 0f));
-                     prev = new Vector3(-1f, 0, 0f);
-                    goup = false;
-
-                }
-            }
 
             if (transform.position.y > -0.5)
             {
+
                 um = 5.01f * Time.deltaTime;
+
                 transform.position = Vector3.MoveTowards(transform.position, movetothis, um);
             }
             if (transform.position == movetothis)
             {
+                if (slow)
+                {
+                    StartCoroutine("asdf");
+                }
+                else
+                {
+                    trol = true;
+                }
                 start = false;
-                trol = true;
-                goup = false;
-                godown = false;
+                cantdown = false;
+                cantleft = false;
+                cantup = false;
+                cantright = false;
+
 
             }
         }
         if (trol)
         {
 
-            if (Input.GetKeyDown("up"))
+            if (Input.GetKeyDown("up") && !cantup)
             {
-                if (ul || ur)
+                if (ul && start)
                 {
-                    trol = false;
+                    cantleft = true;
+                }
+                else
+                {
+                    cantleft = false;
+                }
+                if (ur && start)
+                {
+                    cantright = true;
+                }
+                else
+                {
+                    cantright = false;
                 }
                 if (!u)
                 {
@@ -97,11 +101,23 @@ public class movement : MonoBehaviour
                     prev = new Vector3(-1f, 0, 0f);
                 }
             }
-            else if (Input.GetKeyDown("down"))
+            else if (Input.GetKeyDown("down") && !cantdown)
             {
-                if (dl || dr)
+                if (dl && start)
                 {
-                    trol = false;
+                    cantleft = true;
+                }
+                else
+                {
+                    cantleft = false;
+                }
+                if (dr && start)
+                {
+                    cantright = true;
+                }
+                else
+                {
+                    cantright = false;
                 }
                 if (!d)
                 {
@@ -109,17 +125,23 @@ public class movement : MonoBehaviour
                     prev = new Vector3(1f, 0, 0f);
                 }
             }
-            else if (Input.GetKeyDown("left"))
+            else if (Input.GetKeyDown("left") && !cantleft)
             {
-                if (dl)
+                if (dl && start)
                 {
-                    goup = true;
-                    trol = false;
+                    cantdown = true;
                 }
-                if (ul)
+                else
                 {
-                    godown = true;
-                    trol = false;
+                    cantdown = false;
+                }
+                if (ul && start)
+                {
+                    cantup = true;
+                }
+                else
+                {
+                    cantup = false;
                 }
                 if (!l)
                 {
@@ -127,11 +149,23 @@ public class movement : MonoBehaviour
                     prev = new Vector3(0f, 0, -1f);
                 }
             }
-            else if (Input.GetKeyDown("right"))
+            else if (Input.GetKeyDown("right") && !cantright)
             {
-                if (dr || ur)
+                if (dr && start)
                 {
-                    trol = false;
+                    cantdown = true;
+                }
+                else
+                {
+                    cantdown = false;
+                }
+                if (ur && start)
+                {
+                    cantup = true;
+                }
+                else
+                {
+                    cantup = false;
                 }
                 if (!r)
                 {
@@ -157,12 +191,13 @@ public class movement : MonoBehaviour
 
     private void movelol(Vector3 a)
     {
+        GetComponent<AudioSource>().Play();
         movetothis = movetothis + a;
         start = true;
         //trol = false;
     }
 
-
+    //code based on unity raycast documentation
     void FixedUpdate()
     {
 
@@ -185,12 +220,18 @@ public class movement : MonoBehaviour
         RaycastHit upright;
         RaycastHit downleft;
         RaycastHit downright;
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
 
 
 
 
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(ra, transform.TransformDirection(Vector3.forward), out down, 0.5f))
+        if (Physics.Raycast(ra, transform.TransformDirection(Vector3.forward), out down, 0.5f, layerMask))
         {
             d = true;
             Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * down.distance, Color.yellow);
@@ -202,7 +243,7 @@ public class movement : MonoBehaviour
         }
 
 
-        if (Physics.Raycast(ra32, transform.TransformDirection(Vector3.forward), out downright, 0.5f))
+        if (Physics.Raycast(ra32, transform.TransformDirection(Vector3.forward), out downright, 0.5f, layerMask))
         {
             dr = true;
             Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * downright.distance, Color.yellow);
@@ -215,7 +256,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra332, transform.TransformDirection(Vector3.forward), out downleft, 0.5f))
+        if (Physics.Raycast(ra332, transform.TransformDirection(Vector3.forward), out downleft, 0.5f, layerMask))
         {
             dl = true;
             Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * downleft.distance, Color.yellow);
@@ -229,7 +270,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra42, transform.TransformDirection(Vector3.back), out upright, 0.5f))
+        if (Physics.Raycast(ra42, transform.TransformDirection(Vector3.back), out upright, 0.5f, layerMask))
         {
             ur = true;
             Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * upright.distance, Color.yellow);
@@ -245,7 +286,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra442, transform.TransformDirection(Vector3.back), out upleft, 0.5f))
+        if (Physics.Raycast(ra442, transform.TransformDirection(Vector3.back), out upleft, 0.5f, layerMask))
         {
             ul = true;
             Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * upleft.distance, Color.yellow);
@@ -264,7 +305,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra2, transform.TransformDirection(Vector3.back), out up, 0.5f))
+        if (Physics.Raycast(ra2, transform.TransformDirection(Vector3.back), out up, 0.5f, layerMask))
         {
             u = true;
             Debug.DrawRay(ra2, transform.TransformDirection(Vector3.back) * up.distance, Color.yellow);
@@ -275,7 +316,7 @@ public class movement : MonoBehaviour
             Debug.DrawRay(ra2, transform.TransformDirection(Vector3.back) * 0.5f, Color.white);
         }
 
-        if (Physics.Raycast(ra3, transform.TransformDirection(Vector3.left), out right, 0.5f))
+        if (Physics.Raycast(ra3, transform.TransformDirection(Vector3.left), out right, 0.5f, layerMask))
         {
             r = true;
             Debug.DrawRay(ra3, transform.TransformDirection(Vector3.left) * right.distance, Color.yellow);
@@ -286,7 +327,7 @@ public class movement : MonoBehaviour
             Debug.DrawRay(ra3, transform.TransformDirection(Vector3.left) * 0.5f, Color.white);
         }
 
-        if (Physics.Raycast(ra4, transform.TransformDirection(Vector3.right), out left, 0.5f))
+        if (Physics.Raycast(ra4, transform.TransformDirection(Vector3.right), out left, 0.5f, layerMask))
         {
             l = true;
             Debug.DrawRay(ra4, transform.TransformDirection(Vector3.right) * left.distance, Color.yellow);
@@ -307,11 +348,21 @@ public class movement : MonoBehaviour
 
     IEnumerator restart()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator asdf()
+    {
+        yield return new WaitForSeconds(1f);
+        trol = true;
+        slow = false;
+
     }
     public void moveback()
     {
+        slow = true;
+        trol = false;
         movelol(prev);
 
     }
@@ -319,10 +370,12 @@ public class movement : MonoBehaviour
     {
         if (other.tag == "win")
         {
+            death.Play();
             win.SetActive(true);
             Destroy(gameObject);
 
         }
 
     }
+    
 }
