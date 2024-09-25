@@ -19,6 +19,6 @@ public class cameramove : MonoBehaviour
         um = 5.01f * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-4+5*lvl,transform.position.y,transform.position.z), um);
         
-   
+
     }
 }

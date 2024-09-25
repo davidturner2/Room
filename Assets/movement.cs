@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class movement : MonoBehaviour
 {
     public AudioSource death;
+    public bool stopdetecting;
     private bool start = false;
     private bool trol = false;
     private bool d;
@@ -26,7 +27,7 @@ public class movement : MonoBehaviour
     private bool slow = false;
     private bool anotherboolean = true;
     private float um;
-    private Vector3 movetothis;
+    public Vector3 movetothis;
     public GameObject win;
     public GameObject lose;
     private Vector3 prev;
@@ -46,7 +47,6 @@ public class movement : MonoBehaviour
 
         if (start == true)
         {
-
 
             if (transform.position.y > -0.5)
             {
@@ -74,7 +74,7 @@ public class movement : MonoBehaviour
 
             }
         }
-        if (trol)
+        if (trol && stopdetecting == false)
         {
 
             if (Input.GetKeyDown("up") && !cantup)
@@ -189,20 +189,24 @@ public class movement : MonoBehaviour
 
     }
 
-    private void movelol(Vector3 a)
+    public void movelol(Vector3 a)
     {
         GetComponent<AudioSource>().Play();
         movetothis = movetothis + a;
-        start = true;
-        //trol = false;
+       start = true;
+
+        if (dr || ur || ul || dl){
+                    trol = false;
+        StartCoroutine("kar");
+        }
     }
 
     //code based on unity raycast documentation
     void FixedUpdate()
     {
-
-        Vector3 ra = new Vector3(movetothis.x - 0.5f, movetothis.y + 0.5f, movetothis.z);
-        Vector3 ra2 = new Vector3(movetothis.x + 0.5f, movetothis.y + 0.5f, movetothis.z);
+        if (stopdetecting == false){
+        Vector3 ra = new Vector3(movetothis.x - 0.3f, movetothis.y + 0.3f, movetothis.z);
+        Vector3 ra2 = new Vector3(movetothis.x + 0.3f, movetothis.y + 0.3f, movetothis.z);
         Vector3 ra3 = new Vector3(movetothis.x, movetothis.y + 0.5f, movetothis.z - 0.5f);
         Vector3 ra4 = new Vector3(movetothis.x, movetothis.y + 0.5f, movetothis.z + 0.5f);
 
@@ -231,7 +235,7 @@ public class movement : MonoBehaviour
 
 
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(ra, transform.TransformDirection(Vector3.forward), out down, 0.5f, layerMask))
+        if (Physics.Raycast(ra, transform.TransformDirection(Vector3.forward), out down, 0.7f, layerMask))
         {
             d = true;
             Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * down.distance, Color.yellow);
@@ -239,11 +243,11 @@ public class movement : MonoBehaviour
         else
         {
             d = false;
-            Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * 0.5f, Color.white);
+            Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * 0.7f, Color.white);
         }
 
 
-        if (Physics.Raycast(ra32, transform.TransformDirection(Vector3.forward), out downright, 0.5f, layerMask))
+        if (Physics.Raycast(ra32, transform.TransformDirection(Vector3.forward), out downright, 0.7f, layerMask))
         {
             dr = true;
             Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * downright.distance, Color.yellow);
@@ -251,12 +255,12 @@ public class movement : MonoBehaviour
         else
         {
             dr = false;
-            Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * 0.5f, Color.red);
+            Debug.DrawRay(ra32, transform.TransformDirection(Vector3.forward) * 0.7f, Color.red);
         }
 
 
 
-        if (Physics.Raycast(ra332, transform.TransformDirection(Vector3.forward), out downleft, 0.5f, layerMask))
+        if (Physics.Raycast(ra332, transform.TransformDirection(Vector3.forward), out downleft, 0.7f, layerMask))
         {
             dl = true;
             Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * downleft.distance, Color.yellow);
@@ -264,13 +268,13 @@ public class movement : MonoBehaviour
         else
         {
             dl = false;
-            Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * 0.5f, Color.green);
+            Debug.DrawRay(ra332, transform.TransformDirection(Vector3.forward) * 0.7f, Color.green);
         }
 
 
 
 
-        if (Physics.Raycast(ra42, transform.TransformDirection(Vector3.back), out upright, 0.5f, layerMask))
+        if (Physics.Raycast(ra42, transform.TransformDirection(Vector3.back), out upright, 0.7f, layerMask))
         {
             ur = true;
             Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * upright.distance, Color.yellow);
@@ -278,7 +282,7 @@ public class movement : MonoBehaviour
         else
         {
             ur = false;
-            Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * 0.5f, Color.magenta);
+            Debug.DrawRay(ra42, transform.TransformDirection(Vector3.back) * 0.7f, Color.magenta);
         }
 
 
@@ -286,7 +290,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra442, transform.TransformDirection(Vector3.back), out upleft, 0.5f, layerMask))
+        if (Physics.Raycast(ra442, transform.TransformDirection(Vector3.back), out upleft, 0.7f, layerMask))
         {
             ul = true;
             Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * upleft.distance, Color.yellow);
@@ -294,7 +298,7 @@ public class movement : MonoBehaviour
         else
         {
             ul = false;
-            Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * 0.5f, Color.cyan);
+            Debug.DrawRay(ra442, transform.TransformDirection(Vector3.back) * 0.7f, Color.cyan);
         }
 
 
@@ -305,7 +309,7 @@ public class movement : MonoBehaviour
 
 
 
-        if (Physics.Raycast(ra2, transform.TransformDirection(Vector3.back), out up, 0.5f, layerMask))
+        if (Physics.Raycast(ra2, transform.TransformDirection(Vector3.back), out up, 0.7f, layerMask))
         {
             u = true;
             Debug.DrawRay(ra2, transform.TransformDirection(Vector3.back) * up.distance, Color.yellow);
@@ -313,10 +317,10 @@ public class movement : MonoBehaviour
         else
         {
             u = false;
-            Debug.DrawRay(ra2, transform.TransformDirection(Vector3.back) * 0.5f, Color.white);
+            Debug.DrawRay(ra2, transform.TransformDirection(Vector3.back) * 0.7f, Color.white);
         }
 
-        if (Physics.Raycast(ra3, transform.TransformDirection(Vector3.left), out right, 0.5f, layerMask))
+        if (Physics.Raycast(ra3, transform.TransformDirection(Vector3.left), out right, 0.7f, layerMask))
         {
             r = true;
             Debug.DrawRay(ra3, transform.TransformDirection(Vector3.left) * right.distance, Color.yellow);
@@ -324,10 +328,10 @@ public class movement : MonoBehaviour
         else
         {
             r = false;
-            Debug.DrawRay(ra3, transform.TransformDirection(Vector3.left) * 0.5f, Color.white);
+            Debug.DrawRay(ra3, transform.TransformDirection(Vector3.left) * 0.7f, Color.white);
         }
 
-        if (Physics.Raycast(ra4, transform.TransformDirection(Vector3.right), out left, 0.5f, layerMask))
+        if (Physics.Raycast(ra4, transform.TransformDirection(Vector3.right), out left, 0.7f, layerMask))
         {
             l = true;
             Debug.DrawRay(ra4, transform.TransformDirection(Vector3.right) * left.distance, Color.yellow);
@@ -335,7 +339,18 @@ public class movement : MonoBehaviour
         else
         {
             l = false;
-            Debug.DrawRay(ra4, transform.TransformDirection(Vector3.right) * 0.5f, Color.white);
+            Debug.DrawRay(ra4, transform.TransformDirection(Vector3.right) * 0.7f, Color.white);
+        }
+        }
+        else{
+            l = false;
+            u = false;
+            r = false;
+            d = false;
+            ul = false;
+            ur = false;
+            dl = false;
+            dr = false;
         }
     }
 
@@ -345,7 +360,12 @@ public class movement : MonoBehaviour
         yield return new WaitForSeconds(1);
         start = true;
     }
+    IEnumerator kar()
+    {
+        yield return new WaitForSeconds(0.1f);
+        trol = true;
 
+    }
     IEnumerator restart()
     {
         yield return new WaitForSeconds(1f);
@@ -377,5 +397,6 @@ public class movement : MonoBehaviour
         }
 
     }
-    
+
 }
+

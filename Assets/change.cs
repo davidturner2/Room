@@ -19,7 +19,7 @@ public class change : MonoBehaviour
     }
     void Update()
     {
-    um = 2.01f*Time.deltaTime;
+    um = 6.01f*Time.deltaTime;
     GetComponent<Renderer>().material.color = a;
     
     if(after){
