@@ -13,10 +13,13 @@ public class medication : MonoBehaviour
         medcap.GetComponentInChildren<Animator>().Play("none");
     }
     private void OnTriggerEnter(Collider other){
-        other.GetComponent<movement>().moveback();
-        a.enabled = true;
-        medcap.GetComponentInChildren<Animator>().Play("open");
-        Destroy(GetComponent<BoxCollider>());
+        if (other.tag == "Player")
+        {
+            other.GetComponent<movement>().moveback();
+            a.enabled = true;
+            medcap.GetComponentInChildren<Animator>().Play("open");
+            Destroy(GetComponent<BoxCollider>());
+        }
     }
     
     // Update is called once per frame
