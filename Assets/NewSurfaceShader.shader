@@ -36,7 +36,7 @@ Shader "Custom/NewSurfaceShader"
             _Color.r = IN.uv_MainTex.x; // You can use IN.uv_MainTex.x to vary the red channel across the surface
 
             // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * 5* _Color * tan(_Time/1.1);
             o.Albedo = c.rgb;
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;

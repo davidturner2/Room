@@ -1,12 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class example : MonoBehaviour
 {
+    bool stop = true;
+    bool toy = true;
+    public int e = 0;
+    public int w = 0;
+    public TextMeshProUGUI text;
+        public TextMeshProUGUI text2;
+
+    public GameObject win;
+        public GameObject win2;
+
+        public GameObject lose;
+
     Rigidbody r;
-    float boost = 1f;
+    float ahh = 0f;
+    public float boost = 1f;
     Vector3 direction;
     bool left= false;
     public GameObject b;
@@ -17,42 +35,76 @@ public class example : MonoBehaviour
         b.GetComponent<ParticleSystem>().Stop();
 direction =Vector3.zero;
     }
+    void Update(){
+         if(Input.GetKey("space")){
+                    SceneManager.LoadScene(1);
 
+        }
+    }
+    IEnumerator asddf(){
+        yield return new WaitForSeconds(5f);
+        win.SetActive(false);
+
+
+    }
     // Update is called once per frame
     void FixedUpdate()
-    {
-        r.AddForce(direction * 20 * boost);
+    {   if(stop){
+        if(e>3 && toy){
+            toy = false;
+        win.SetActive(true);
+        StartCoroutine("asddf");
+        }
+        if(w>=265){
+win2.SetActive(true);
+        }
+   
+        if (Input.GetKey("w"))
+        {
+                    //r.AddForce(direction * 20 * boost);
 
-        if (Input.GetKey("up"))
-        {
-            direction = Vector3.back;
+            r.velocity =transform.rotation * (Vector3.forward*20*boost);
+       
+    
         }
-         if (Input.GetKey("left"))
+         if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
         {
-            if(!left){
-         float z=   r.velocity.z;
-         r.velocity = new Vector3(0,0,z);
-         left = true;
-            }
-            direction = Vector3.right;
+            transform.Rotate(new Vector3(0,-5,0));
+     
+            //r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.right*20*boost;
+          
         }
-           if (Input.GetKey("right"))
+           if (Input.GetKey("d"))//&& !Input.GetKey("w")&& !Input.GetKey("s"))
         {
-            if(left){
+                        transform.Rotate(new Vector3(0,5,0));
+
+           // r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.left*20*boost;
+        
+        }
+        if (Input.GetKey("x"))
+        {
+                    r.velocity = r.velocity/1.202f; //(direction * 20 * boost);
+        }
+        if (Input.GetKey("s"))
+        {
             
-            float z=   r.velocity.z;
-         r.velocity = new Vector3(0,0,z);
-         left = false;
-            }
-            direction = Vector3.left;
-        }
-        if (Input.GetKey("down"))
-        {
-            r.velocity = r.velocity/1.202f; //(direction * 20 * boost);
+                       r.velocity =transform.rotation * (Vector3.back*20*boost);
 
-            direction = Vector3.zero; //(transform.position-Vector3.back*100);
+       
+           if (Input.GetKey("d") &&Input.GetKey("s"))
+        {
+            //r.velocity  = Quaternion.Inverse(transform.rotation) *  Vector3.forward*20*boost+Vector3.left*20*boost;
         }
-        if (Input.GetKey("space"))
+            
+            //direction = Vector3.zero; //(transform.position-Vector3.back*100);
+        }
+        if(Input.GetKey("q")){
+            r.velocity = new Vector3(0,1,0) * 20 * boost;
+        }
+           if(Input.GetKey("e")){
+            r.velocity = new Vector3(0,-1,0) * 20 * boost;
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
         {
                         b.SetActive(true);
 
@@ -63,13 +115,52 @@ direction =Vector3.zero;
             {
                 direction = Vector3.back;
 
+
             }
-            boost = 10f;
+            boost = 2f+ahh/400;
         }
         else 
         {
             b.SetActive(false);
             boost = 1f;
+        }
+       if (Input.GetKey("x")){
+                r.velocity = r.velocity/1.302f; 
+
+       }
+        r.velocity = r.velocity/1.0602f; 
+    }
+    }
+
+    private void OnCollisionEnter(Collision other){
+        if ( Vector3.Magnitude(other.gameObject.GetComponent<BoxCollider>().bounds.size)
+        >=Vector3.Magnitude(gameObject.transform.GetChild(0).GetComponent<BoxCollider>().bounds.size)){
+            print("bigger");
+           if( other.gameObject.tag != "wall"){
+            //Destroy(gameObject.transform.GetChild(0).gameObject);
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+                        transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+            b.SetActive(false);
+            transform.position = new Vector3(9999,9999,9999);
+            stop = false;
+            lose.SetActive(true);
+            }
+        }else{
+            if(other.gameObject.tag == "win"){
+                    e++;
+                    text2.text = "enemy:"+e+"/4";
+            }
+             if(other.gameObject.tag == "wall"){
+                    w++;
+            }
+            ahh += Vector3.Magnitude(other.gameObject.GetComponent<BoxCollider>().bounds.size);
+            text.text = "total value of things abducted:"+Mathf.RoundToInt(ahh);
+                        Destroy(other.gameObject);
+
+            gameObject.transform.GetChild(0).transform.localScale +=new Vector3(0.25f,0.25f,0.25f);
+                  gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).transform.localScale +=new Vector3(0.25f,0.25f,0.25f);
+                  gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).transform.position +=new Vector3(0,0,0.1f*0.25f);
+
         }
     }
 }
