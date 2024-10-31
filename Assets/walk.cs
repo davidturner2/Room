@@ -5,18 +5,27 @@ using UnityEngine;
 public class walk : MonoBehaviour
 {
     Rigidbody r;
+    bool isGrounded;
         Animator a;
-    float speed;
+       public GameObject child;
+            float speed = 0;
     // Start is called before the first frame update
     void Start()
     {
         r = GetComponent<Rigidbody>();
-        a = GetComponent<Animator>();
+        a = child.GetComponent<Animator>();
     }
+ 	void OnCollisionStay()
+    	{
+    		isGrounded = true;
+            a.SetBool("Jump",false);
+            a.SetBool("Jump2",false);
 
+    	}
     // Update is called once per frame
     void FixedUpdate()
     {
+
          if (Input.GetKey("w"))
         {
             a.SetBool("walkin",true);
@@ -26,12 +35,12 @@ public class walk : MonoBehaviour
                 speed = 12;
 
             }
-            r.velocity =transform.rotation * (Vector3.forward*speed);
+            r.velocity =child.transform.rotation * (Vector3.forward*speed);
 if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
         {
                         a.SetBool("walkin",true);
 
-            transform.Rotate(new Vector3(0,-4,0));
+           child.transform.Rotate(new Vector3(0,-4,0));
      
             //r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.right*20*boost;
           
@@ -40,7 +49,7 @@ if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
         {
                         a.SetBool("walkin",true);
 
-                        transform.Rotate(new Vector3(0,4,0));
+                        child.transform.Rotate(new Vector3(0,4,0));
 
            // r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.left*20*boost;
         
@@ -51,7 +60,7 @@ if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
         {
                         a.SetBool("walkin",true);
 
-            transform.Rotate(new Vector3(0,-4,0));
+            child.transform.Rotate(new Vector3(0,-4,0));
      
             //r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.right*20*boost;
           
@@ -60,7 +69,7 @@ if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
         {
                         a.SetBool("walkin",true);
 
-                        transform.Rotate(new Vector3(0,4,0));
+                        child.transform.Rotate(new Vector3(0,4,0));
 
            // r.velocity  =Quaternion.Inverse(transform.rotation) *  Vector3.left*20*boost;
         
@@ -71,7 +80,7 @@ if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
                         a.SetBool("walkin",true);
 
             
-                       r.velocity =transform.rotation * (Vector3.back*8);
+                       r.velocity =child.transform.rotation * (Vector3.back*8);
 
          }
          else{
@@ -79,10 +88,22 @@ if (Input.GetKey("a"))// && !Input.GetKey("w")&& !Input.GetKey("s"))
                         speed = 0;
             
          }
-        if (Input.GetKeyDown("space")){
-            a.SetTrigger("Jump");
-            r.AddForce(Vector2.up*9);
-        }
+     
 
+    }
+    void Update(){
+           if (Input.GetKeyDown(KeyCode.Space) && isGrounded){
+            Debug.Log("ASDFGGJSDKF");
+            if (speed<12){
+            a.SetBool("Jump",true);
+            }
+            else{
+                            a.SetBool("Jump2",true);
+
+            }
+                			isGrounded = false;
+
+            r.AddForce(Vector2.up*50, ForceMode.Impulse);
+        }
     }
 }
