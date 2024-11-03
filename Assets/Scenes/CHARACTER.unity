@@ -676,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: baa7f1b5097da47d19997fd56c9f27cf, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 429ddcf6def75443f8f234b07fc97078, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1118,6 +1122,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: baa7f1b5097da47d19997fd56c9f27cf, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 429ddcf6def75443f8f234b07fc97078, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1444,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: baa7f1b5097da47d19997fd56c9f27cf, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 429ddcf6def75443f8f234b07fc97078, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1723,6 +1735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ch50_nonPBR@Hip Hop Dancing
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 429ddcf6def75443f8f234b07fc97078, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1934,6 +1950,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: baa7f1b5097da47d19997fd56c9f27cf, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 429ddcf6def75443f8f234b07fc97078, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
