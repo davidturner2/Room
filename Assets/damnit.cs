@@ -27,12 +27,13 @@ public float rotationSpeed = 200.029382f;
             accel+=0.19f;
                transform.RotateAround(player.transform.position, Vector3.up, 5.029304385f * horizontalInput* rotationSpeed * Time.deltaTime);
                 if (player.GetComponent<Animator>().GetBool("walkin") == true){
-                                    player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, Camera.main.transform.rotation,accel*Time.deltaTime);
-
+                     //player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, Camera.main.transform.rotation,accel*Time.deltaTime);
+                //player.GetComponentInParent<walk>().movewithit =true;
                 }
                 }
         else{
 accel = 100;
+           // player.GetComponentInParent<walk>().movewithit = false;
         }
         
             //transform.RotateAround( player.transform.position-new Vector3(0,0,-5),Vector3.up , 10 * rotationSpeed * Time.deltaTime*MathF.Sin(Time.deltaTime));
