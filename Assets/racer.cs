@@ -49,7 +49,7 @@ public partial class @Racer: IInputActionCollection2, IDisposable
                     ""name"": ""camera"",
                     ""type"": ""Value"",
                     ""id"": ""8e9b5aa9-1a40-42e8-9fdb-742fb8ab0698"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -244,9 +244,9 @@ public partial class @Racer: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""0ee7fc73-bc3b-47f1-b38b-e463177c287b"",
-                    ""path"": ""1DAxis"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""ee9af35b-eb01-448d-ae02-4e8d17b69eaf"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,8 +255,30 @@ public partial class @Racer: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""5de7ab84-7749-460c-b27c-97a7730b71f4"",
+                    ""name"": ""up"",
+                    ""id"": ""59a57344-807b-423a-b31d-1613d469b27c"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""df085a95-07fd-4119-8942-464a2cbcb934"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b8bf2845-83b6-4957-bc5c-ed6ea3c043f4"",
                     ""path"": ""<Gamepad>/rightStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -266,8 +288,8 @@ public partial class @Racer: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""7838f862-0604-48ce-9621-7805358a709c"",
+                    ""name"": ""right"",
+                    ""id"": ""59e11e33-3d90-470b-9f4e-2f44e1b6f6d1"",
                     ""path"": ""<Gamepad>/rightStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
