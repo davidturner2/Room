@@ -1130,6 +1130,7 @@ GameObject:
   - component: {fileID: 963710017}
   - component: {fileID: 963710016}
   - component: {fileID: 963710015}
+  - component: {fileID: 963710018}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1177,6 +1178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   child: {fileID: 919681848}
+  movewithit: 0
 --- !u!4 &963710017
 Transform:
   m_ObjectHideFlags: 0
@@ -1194,6 +1196,57 @@ Transform:
   - {fileID: 919681855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &963710018
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963710014}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1001 &977857605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3358,13 +3411,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7979491337293752397}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -40.545296, y: 7.0148563, z: 37.78111}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.08229443, y: 0.7832963, z: 0.6019987, w: 0.1314239}
+  m_LocalPosition: {x: -53.76, y: -6.25, z: 10.9}
+  m_LocalScale: {x: 362.0844, y: 273.23, z: 592.6086}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4365250473791065466}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -74.735, y: 156.067, z: 6.392}
 --- !u!4 &2546710054978142494
 Transform:
   m_ObjectHideFlags: 0
@@ -3850,6 +3903,7 @@ GameObject:
   - component: {fileID: 2195175430042941509}
   - component: {fileID: 7191603940988939332}
   - component: {fileID: 6565904669105175767}
+  - component: {fileID: 7979491337293752398}
   m_Layer: 0
   m_Name: NurbsCurve
   m_TagString: Untagged
@@ -3857,6 +3911,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &7979491337293752398
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979491337293752397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6597847060184789411, guid: 937e8df6349a84c0ba5fad2d08d1017e, type: 3}
 --- !u!33 &8149416560768606337
 MeshFilter:
   m_ObjectHideFlags: 0
