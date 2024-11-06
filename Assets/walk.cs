@@ -12,6 +12,7 @@ public class walk : MonoBehaviour
     private Racer trolls;
     private Vector2 mover;
     float accel = 200f;
+    bool curve = false;
     public void Awake()
     {
         trolls = new Racer();
@@ -58,8 +59,16 @@ public class walk : MonoBehaviour
         }
        // print(mover.y);
       
-            //child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
-            r.velocity =child.transform.rotation * ad * speed;
+            if (curve){
+                r.velocity =child.transform.rotation * ad * speed;
+            // Camera.main.transform.parent = child.transform;
+            }else{
+                            child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
+
+                // Camera.main.transform.parent = gameObject.transform;
+                r.velocity =Camera.main.transform.rotation * ad * speed;
+
+            }
             
        
         speed += 0.2f;
@@ -83,13 +92,19 @@ public class walk : MonoBehaviour
                 RaycastHit down;
             Vector3 movetothis = child.transform.position+ child.transform.rotation*new Vector3(0,1,0);
             //Vector3 ra = new Vector3(movetothis.x - 0.3f, movetothis.y + 0.3f, movetothis.z);
-       if (Physics.Raycast(movetothis, child.transform.rotation*child.transform.TransformDirection(Vector3.down), out down, 2f))
+       if (Physics.Raycast(movetothis, child.transform.rotation*(Vector3.down), out down, 2f))
         {
+            if(down.collider.tag == "curve"){
+                curve = true;
+            }else{
+                curve = false;
+            }
             print(down.collider.gameObject.name);
-            Debug.DrawRay(movetothis, child.transform.rotation*child.transform.TransformDirection(Vector3.down) * down.distance, Color.yellow);
-            child.transform.rotation = Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation;
+            Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
+            child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,60.01f * Time.deltaTime);
         }else{
-            Debug.DrawRay(movetothis, child.transform.rotation*child.transform.TransformDirection(Vector3.down) * 1f, Color.red);
+                            curve = false;
+            Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * 1f, Color.red);
         }
 
     }

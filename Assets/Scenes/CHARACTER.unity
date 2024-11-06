@@ -2883,7 +2883,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.1192627, y: 1.8936157, z: 0.9818182}
   m_Center: {x: -0.07803345, y: 0.9671936, z: 0.046963215}
@@ -2904,7 +2904,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.28674316
   m_Height: 1.470398
@@ -4159,7 +4159,7 @@ GameObject:
   - component: {fileID: 7979491337293752398}
   m_Layer: 0
   m_Name: NurbsCurve
-  m_TagString: Untagged
+  m_TagString: curve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
