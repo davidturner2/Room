@@ -63,7 +63,7 @@ public class walk : MonoBehaviour
                 r.velocity =child.transform.rotation * ad * speed;
             // Camera.main.transform.parent = child.transform;
             }else{
-                            child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
+                child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
 
                 // Camera.main.transform.parent = gameObject.transform;
                 r.velocity =Camera.main.transform.rotation * ad * speed;
@@ -95,14 +95,18 @@ public class walk : MonoBehaviour
        if (Physics.Raycast(movetothis, child.transform.rotation*(Vector3.down), out down, 2f))
         {
             if(down.collider.tag == "curve"){
-                curve = true;
+                //curve = true;
             }else{
-                curve = false;
+               // curve = false;
             }
             print(down.collider.gameObject.name);
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
             child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,60.01f * Time.deltaTime);
-        }else{
+            Camera.main.transform.rotation = child.transform.rotation;
+
+        }
+        else
+        {
                             curve = false;
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * 1f, Color.red);
         }

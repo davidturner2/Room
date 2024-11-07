@@ -14,6 +14,7 @@ public class damnit : MonoBehaviour
     Vector3 ghjkl;
     float accel = 100f;
     bool computer = true;
+    bool curve = true;
     // Start is called before the first frame update
     public void Awake()
     {
@@ -77,7 +78,10 @@ public class damnit : MonoBehaviour
             // player.GetComponentInParent<walk>().movewithit = false;
         }
 
+        if (curve)
+        {
 
+        }
         //transform.RotateAround( player.transform.position-new Vector3(0,0,-5),Vector3.up , 10 * rotationSpeed * Time.deltaTime*MathF.Sin(Time.deltaTime));
 
 
