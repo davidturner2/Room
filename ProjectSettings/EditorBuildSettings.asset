@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sghdajfga 1.unity
     guid: fc78767b7894b419e82f7e11cea2a9af
+  - enabled: 1
+    path: Assets/OHHH MY GOSH.unity
+    guid: 8124129532ad3479a9a5a72cdce2eb3b
   m_configObjects: {}
