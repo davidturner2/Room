@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class walk : MonoBehaviour
 {
@@ -146,7 +147,20 @@ public class walk : MonoBehaviour
     
         
     }
-    void OnCollisionEnter(Collision other){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "wall")
+        {
+            other.gameObject.GetComponent<dialoge>().asdf();
+        }
+        if(other.gameObject.tag == "Finish")
+        {
+           
+                SceneManager.LoadScene(4);
+
+                }
+    }
+            void OnCollisionEnter(Collision other){
         if (other.gameObject.tag == "person"){
             AudioSource []sd = gameObject.GetComponentsInChildren<AudioSource>();
             for(int i = 0; i<sd.Length;i++){
@@ -154,7 +168,7 @@ public class walk : MonoBehaviour
                 sd[i].Play();
                 }
             }
-            //other.gameObject.GetComponent<Rigidbody>().AddForce(40*transform.forward,ForceMode.Impulse);
+            other.gameObject.GetComponent<Rigidbody>().AddForce(40*transform.forward,ForceMode.Impulse);
         }
     }
     

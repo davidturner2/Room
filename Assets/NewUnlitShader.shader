@@ -38,7 +38,7 @@ Shader "Custom/NewUnlitShader"
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.vertex = UnityObjectToClipPos(v.vertex*1*abs(sin(_Time)));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -47,7 +47,7 @@ Shader "Custom/NewUnlitShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv+0.5*tan(_Time/0.1)/9);
+                fixed4 col = tex2D(_MainTex, i.uv+0.2*abs(sin(_Time))*1*sin(_Time/10.1));
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
