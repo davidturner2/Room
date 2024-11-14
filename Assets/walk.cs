@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class walk : MonoBehaviour
@@ -11,8 +12,10 @@ public class walk : MonoBehaviour
     float speed = 10;
     private Racer trolls;
     private Vector2 mover;
-    float accel = 200f;
+    float accel = 400f;
     bool curve = false;
+    bool um = false;
+    Quaternion HELPMEEEE;
     public void Awake()
     {
         trolls = new Racer();
@@ -50,7 +53,10 @@ public class walk : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
-        Vector3 ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);;
+        Vector3 ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);
+            Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, HELPMEEEE.eulerAngles.z);;
+
+
         if (mover.y>=0){
             ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);
         }else{
@@ -58,9 +64,12 @@ public class walk : MonoBehaviour
 
         }
        // print(mover.y);
-      
+      if(ad != Vector3.zero){
             if (curve){
+                               child.transform.rotation = HELPMEEEE;
+
                 r.velocity =child.transform.rotation * ad * speed;
+                                //child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
             // Camera.main.transform.parent = child.transform;
             }else{
                 child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
@@ -70,7 +79,7 @@ public class walk : MonoBehaviour
 
             }
             
-       
+      }
         speed += 0.2f;
         if (speed >= 12)
         {
@@ -95,14 +104,13 @@ public class walk : MonoBehaviour
        if (Physics.Raycast(movetothis, child.transform.rotation*(Vector3.down), out down, 2f))
         {
             if(down.collider.tag == "curve"){
-                //curve = true;
+                curve = true;
             }else{
-               // curve = false;
+                curve = false;
             }
-            print(down.collider.gameObject.name);
+            //print(down.collider.gameObject.name);
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
-            child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,60.01f * Time.deltaTime);
-            Camera.main.transform.rotation = child.transform.rotation;
+            HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,60.01f * Time.deltaTime);
 
         }
         else
@@ -133,7 +141,21 @@ public class walk : MonoBehaviour
     }
     void Update()
     {
+        Vector3 a = Vector3.Cross(Camera.main.transform.up,child.transform.up);
+                //print(Quaternion.Angle(child.transform.rotation,Camera.main.transform.rotation));
+    
         
+    }
+    void OnCollisionEnter(Collision other){
+        if (other.gameObject.tag == "person"){
+            AudioSource []sd = gameObject.GetComponentsInChildren<AudioSource>();
+            for(int i = 0; i<sd.Length;i++){
+                if(!sd[i].isPlaying){
+                sd[i].Play();
+                }
+            }
+            //other.gameObject.GetComponent<Rigidbody>().AddForce(40*transform.forward,ForceMode.Impulse);
+        }
     }
     
 }

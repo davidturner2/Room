@@ -1,23 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
-    private Transform goal;
+    public Vector3 goal;
     NavMeshAgent agent;
+    public bool aaa = true;
+    public bool n = true;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        goal = transform.position;
         agent = GetComponent<NavMeshAgent>();
+        n = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        goal = GameObject.FindWithTag("Player").transform;
-        agent.destination = goal.position;
+        if ( agent.remainingDistance <= 0 && aaa && n){
+         
+        }
+        //print(agent.remainingDistance);
+        if (aaa){
+        agent.destination = goal;
+        }
     }
 }
