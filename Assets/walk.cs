@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,7 +56,7 @@ public class walk : MonoBehaviour
     {
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
         Vector3 ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);
-            Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, HELPMEEEE.eulerAngles.z);;
+            Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);;
 
 
         if (mover.y>=0){
@@ -64,21 +65,23 @@ public class walk : MonoBehaviour
             ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+180 * mover.y, 0);
 
         }
-       // print(mover.y);
-      if(ad != Vector3.zero){
-            if (curve){
-                               child.transform.rotation = HELPMEEEE;
+        print(distance(child.transform.rotation.eulerAngles.x, 0) <= 15f);
+        print(distance(child.transform.rotation.eulerAngles.x, 0)+" distance");
 
-                r.velocity =child.transform.rotation * ad * speed;
+        // print(mover.y);
+        if (ad != Vector3.zero){
+            if (distance(child.transform.rotation.eulerAngles.x, 0) <= 10 && distance(child.transform.rotation.eulerAngles.z, 0) <= 10)
+            {
+                child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), 150.01f * Time.deltaTime);
+            }
+            else
+            {
+                child.transform.rotation = HELPMEEEE;//Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
+            }
+            r.velocity = (child.transform.rotation*ad * speed*2.4f);
                                 //child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
             // Camera.main.transform.parent = child.transform;
-            }else{
-                child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad2), accel * Time.deltaTime);
-
-                // Camera.main.transform.parent = gameObject.transform;
-                r.velocity =Camera.main.transform.rotation * ad * speed;
-
-            }
+           
             
       }
         speed += 0.2f;
@@ -111,12 +114,15 @@ public class walk : MonoBehaviour
             }
             //print(down.collider.gameObject.name);
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
-            HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,60.01f * Time.deltaTime);
+            HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,150.01f * Time.deltaTime);
 
         }
         else
         {
-                            curve = false;
+            HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,quaternion.identity, 150.01f * Time.deltaTime);
+
+
+            curve = false;
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * 1f, Color.red);
         }
 
@@ -172,4 +178,17 @@ public class walk : MonoBehaviour
         }
     }
     
+    float distance(float xi,float xf)
+    {
+        if (xi > 180)
+        {
+            return 360-Mathf.Abs(xf - xi);
+
+        }
+        else
+        {
+            return Mathf.Abs(xf - xi);
+
+        }
+    }
 }
