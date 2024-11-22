@@ -42,31 +42,24 @@ public class walk : MonoBehaviour
     void Start()
     {
         r = GetComponent<Rigidbody>();
-        a = child.GetComponent<Animator>();
+        //a = child.GetComponent<Animator>();
     }
     void OnCollisionStay()
     {
         isGrounded = true;
-        a.SetBool("Jump", false);
-        a.SetBool("Jump2", false);
+        //a.SetBool("Jump", false);
+        //a.SetBool("Jump2", false);
 
     }
     // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
-        Vector3 ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);
             Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);;
 
 
-        if (mover.y>=0){
-            ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+90 * mover.x, 0);
-        }else{
-            ad2 = new Vector3(0, Camera.main.transform.rotation.eulerAngles.y+180 * mover.y, 0);
-
-        }
-        print(distance(child.transform.rotation.eulerAngles.x, 0) <= 15f);
-        print(distance(child.transform.rotation.eulerAngles.x, 0)+" distance");
+      //  print(distance(child.transform.rotation.eulerAngles.x, 0) <= 15f);
+       // print(distance(child.transform.rotation.eulerAngles.x, 0)+" distance");
 
         // print(mover.y);
         if (ad != Vector3.zero){
@@ -80,7 +73,6 @@ public class walk : MonoBehaviour
             }
             r.velocity = (child.transform.rotation*ad * speed*2.4f);
                                 //child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
-            // Camera.main.transform.parent = child.transform;
            
             
       }
@@ -94,13 +86,13 @@ public class walk : MonoBehaviour
         {
             speed = 0;
             accel = 0;
-            a.SetBool("walkin", false);
+            //a.SetBool("walkin", false);
         }
         else
         {
             accel = 200;
 
-            a.SetBool("walkin", true);
+            //a.SetBool("walkin", true);
         }
                 RaycastHit down;
             Vector3 movetothis = child.transform.position+ child.transform.rotation*new Vector3(0,1,0);
@@ -134,11 +126,11 @@ public class walk : MonoBehaviour
             Debug.Log("ASDFGGJSDKF");
             if (speed < 12)
             {
-                a.SetBool("Jump", true);
+               // a.SetBool("Jump", true);
             }
             else
             {
-                a.SetBool("Jump2", true);
+                //a.SetBool("Jump2", true);
 
             }
             isGrounded = false;
@@ -146,13 +138,7 @@ public class walk : MonoBehaviour
             r.AddForce(Vector2.up * 50, ForceMode.Impulse);
         }
     }
-    void Update()
-    {
-        Vector3 a = Vector3.Cross(Camera.main.transform.up,child.transform.up);
-                //print(Quaternion.Angle(child.transform.rotation,Camera.main.transform.rotation));
-    
-        
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "wall")
