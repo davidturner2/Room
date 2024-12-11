@@ -1180,7 +1180,7 @@ MonoBehaviour:
   CameraDistance: 5.82
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   IgnoreTag: 
   CameraRadius: 0.001
   DampingIntoCollision: 0
@@ -1760,7 +1760,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ed5eaf15ed79dac4ea3a2f22a8afa392, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 292.7
+      value: 308.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed5eaf15ed79dac4ea3a2f22a8afa392, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1768,7 +1768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed5eaf15ed79dac4ea3a2f22a8afa392, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -154.3
+      value: -166.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed5eaf15ed79dac4ea3a2f22a8afa392, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2172,6 +2172,8 @@ GameObject:
   - component: {fileID: 1169512166}
   - component: {fileID: 1169512167}
   - component: {fileID: 1169512168}
+  - component: {fileID: 1169512170}
+  - component: {fileID: 1169512169}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2247,7 +2249,7 @@ Transform:
   m_GameObject: {fileID: 1169512161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 349.5983, y: 128.606, z: -301.14072}
+  m_LocalPosition: {x: 349.81573, y: 130.46399, z: -311.11624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2400,6 +2402,83 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1169512169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169512161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 681f1b7e6306947868fd1eb2c8e0adb3, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!114 &1169512170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169512161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 1169512165}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &1189328482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2855864113282105254, guid: a0dee83c452ba461da80ac2ff1437a26, type: 3}
@@ -2452,7 +2531,7 @@ Transform:
   m_GameObject: {fileID: 1191999512}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0495906, y: 0, z: 0, w: 0.99876964}
-  m_LocalPosition: {x: 349.5983, y: 128.606, z: -301.14072}
+  m_LocalPosition: {x: 349.81573, y: 130.46399, z: -311.11624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4633,7 +4712,7 @@ Transform:
   m_GameObject: {fileID: 1223377164}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 347.46, y: 40.8, z: -297.7}
+  m_LocalPosition: {x: 347.46, y: 4.3, z: -297.7}
   m_LocalScale: {x: 3.7681572, y: 12.35667, z: 3.7681572}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5875,9 +5954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0430\u0436\u043C\u0438\u0442\u0435 \u0438 \u043F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435,
-    \u0447\u0442\u043E\u0431\u044B \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C
-    \u043A\u0430\u043C\u0435\u0440\u0443\n"
+  m_text: before you go to mischievopolis you must talk to albert einstein.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

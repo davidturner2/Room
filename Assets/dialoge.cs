@@ -9,7 +9,7 @@ public class dialoge : MonoBehaviour
 
     public GameObject camera1;
     public GameObject cameratoomove;
-
+    public GameObject disableplayer;
     bool fart = false;
     // Start is called before the first frame update
     void Start()
@@ -30,5 +30,7 @@ public void asdf() {
             disable.SetActive(false);
             enable.SetActive(true);
             fart = true;
+            disableplayer.GetComponentInChildren<walk>().enabled = false;
+            disableplayer.SetActive(false);
         }
 }
