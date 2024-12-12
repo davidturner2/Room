@@ -7,6 +7,8 @@ public class queue : MonoBehaviour
 {
     public Transform sd;
     public bool has_clicked = false;
+    public AudioSource ahh1;
+    public AudioSource ahh2;
     Vector3 leaveFirst = new Vector3(348.6013f,126.2976f,-294.03f);
     Queue<Vector3> people = new Queue<Vector3>();
     // Start is called before the first frame update
@@ -69,7 +71,9 @@ public class queue : MonoBehaviour
             if (lskdljf.collider.gameObject.tag == "person" && Input.GetMouseButtonDown(0)){
                 if (Vector3.Distance(lskdljf.collider.gameObject.GetComponent<enemy>().goal,leaveFirst) <= 1 && has_clicked == false){
                     //print("Asdfff");
-               poop();
+                    ahh1.Play();
+                    ahh2.Play();
+                    poop();
                has_clicked = true;
                 }
 

@@ -55,7 +55,7 @@ public class walk : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
-            Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);;
+            Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);
 
 
       //  print(distance(child.transform.rotation.eulerAngles.x, 0) <= 15f);
@@ -148,7 +148,7 @@ public class walk : MonoBehaviour
         if(other.gameObject.tag == "Finish")
         {
            
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(1);
 
                 }
     }

@@ -44,7 +44,7 @@ public class ultimatetroll : MonoBehaviour
             troll.text = "";
              if (Input.GetKeyDown("space")&& GameObject.FindWithTag("Player")== null)
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(2);
             }
         }
     }
