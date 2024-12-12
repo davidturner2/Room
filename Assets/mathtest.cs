@@ -20,7 +20,7 @@ public class mathtest : MonoBehaviour
         v1 = new Vector3(Random.Range(0,10),Random.Range(0,10),Random.Range(0,10));
         v2 = new Vector3(Random.Range(0,10),Random.Range(0,10),Random.Range(0,10));
         theAnswer = Vector3.Dot(v1,v2);
-        questoion.text = "What does Vector3.Dot(" + v1+","+v2+") equal?";
+        questoion.text = "What does Vector3.Dot(" + v1+"\n,"+v2+") equal?";
     }
 
     // Update is called once per frame
