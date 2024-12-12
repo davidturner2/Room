@@ -38,6 +38,7 @@ Shader "Custom/NewUnlitShader"
             v2f vert (appdata v)
             {
                 v2f o;
+                //stretch render texture with vertex shader modify by the sin of time absolute value
                 o.vertex = UnityObjectToClipPos(v.vertex*1*abs(sin(_Time)));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
@@ -47,6 +48,7 @@ Shader "Custom/NewUnlitShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
+                // bounce inside the redner texture
                 fixed4 col = tex2D(_MainTex, i.uv+0.2*abs(sin(_Time))*1*sin(_Time/10.1));
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);

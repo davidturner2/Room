@@ -21,7 +21,7 @@ public class walk : MonoBehaviour
     public void Awake()
     {
         trolls = new Racer();
-
+    // input system
         trolls.PCtrolls.move.performed += ctx => mover = ctx.ReadValue<Vector2>();
         trolls.PCtrolls.move.canceled += ctx => mover = Vector2.zero;
         trolls.PCtrolls.jump.performed += ctx => Jump();
@@ -54,7 +54,9 @@ public class walk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // movement vecot for position
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
+        // movement vector based on the curve
             Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);
 
 
@@ -62,6 +64,7 @@ public class walk : MonoBehaviour
        // print(distance(child.transform.rotation.eulerAngles.x, 0)+" distance");
 
         // print(mover.y);
+        // approximate to set the rotation straight or based on curve so you dont rotate in the wrong direction
         if (ad != Vector3.zero){
             if (distance(child.transform.rotation.eulerAngles.x, 0) <= 10 && distance(child.transform.rotation.eulerAngles.z, 0) <= 10)
             {
@@ -71,17 +74,21 @@ public class walk : MonoBehaviour
             {
                 child.transform.rotation = HELPMEEEE;//Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
             }
+            // set velocity to the rotation times the movment vector times the speed 
             r.velocity = (child.transform.rotation*ad * speed*2.4f);
                                 //child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
            
             
       }
+      // acceleration
         speed += 0.2f;
+        //max speed
         if (speed >= 12)
         {
             speed = 12;
 
         }
+        // reset speed
         if (mover == Vector2.zero)
         {
             speed = 0;
@@ -94,6 +101,7 @@ public class walk : MonoBehaviour
 
             //a.SetBool("walkin", true);
         }
+        //start raycast
                 RaycastHit down;
             Vector3 movetothis = child.transform.position+ child.transform.rotation*new Vector3(0,1,0);
             //Vector3 ra = new Vector3(movetothis.x - 0.3f, movetothis.y + 0.3f, movetothis.z);
@@ -104,7 +112,7 @@ public class walk : MonoBehaviour
             }else{
                 curve = false;
             }
-            //print(down.collider.gameObject.name);
+            // set the rotation to rotate towards the from to rotation of the normals based on the transform of the player mulitplied by the current player rotation
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
             HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,150.01f * Time.deltaTime);
 

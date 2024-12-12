@@ -32,8 +32,9 @@ Shader "Custom/NewSurfaceShader"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
+            // modify color based on x value of main texture
             _Color.r = IN.uv_MainTex.x; 
-
+            //change colors based on triggonometry
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * 5* _Color * tan(_Time/1.1);
             o.Albedo = c.rgb;
             o.Metallic = _Metallic;

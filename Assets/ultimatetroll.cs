@@ -17,6 +17,7 @@ public class ultimatetroll : MonoBehaviour
         troll.text = "";
     }
 
+//start counting down for the text
     private void OnTriggerEnter(Collider other){
         if ( other.tag=="Player"){
             player = other.gameObject;
@@ -24,6 +25,7 @@ public class ultimatetroll : MonoBehaviour
             
         }
     }
+    //on trigger enter
     private void OnTriggerExit(Collider other){
         if ( other.tag=="Player"){
             start = false;
@@ -36,6 +38,7 @@ public class ultimatetroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(start && GameObject.FindWithTag("Player")!= null){
                 timer += Time.deltaTime;
                 troll.text = "Stand here for: "+(7-Mathf.RoundToInt(timer))+" seconds to get the real ending!\U0001F947\U0001F480\U0001F480\U0001F480\U0001F480\U0001F480\U0001F480";

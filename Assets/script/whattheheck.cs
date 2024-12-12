@@ -27,7 +27,7 @@ public class whattheheck : MonoBehaviour
     {
         //print("cool "+cool);
         um = 15.01f * Time.deltaTime;
-
+        //move foward
         if (followLoop)
         {
             //GameObject.FindWithTag("MainCamera").GetComponent<Camera>().fieldOfView = Lerp(97,134,um/2);
@@ -49,6 +49,7 @@ public class whattheheck : MonoBehaviour
                 }
                 else
                 {
+                    //iterate through loop
                     cool++;
                 }
             }

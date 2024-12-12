@@ -58,7 +58,7 @@ direction =Vector3.zero;
         if(w>=265){
 win2.SetActive(true);
         }
-   
+    // board game controls to move by one step in vector
         if (Input.GetKey("w"))
         {
                     //r.AddForce(direction * 20 * boost);

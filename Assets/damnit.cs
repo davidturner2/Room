@@ -54,6 +54,8 @@ public class damnit : MonoBehaviour
     {
                 //transform.position = player.transform.position+new Vector3(0,0,-5)*;
         float horizontalInput = Input.GetAxis("CameraHorizontal");
+
+        // rotate around camera based on mouse input
         if ((Input.GetMouseButton(0) || Input.GetMouseButton(1)) && computer)
         {
             accel += 0.19f;
@@ -64,7 +66,7 @@ public class damnit : MonoBehaviour
         {
             accel = 100;
         }
-
+        // rotate based on controller input without having to click
         if (!computer)
         {
 

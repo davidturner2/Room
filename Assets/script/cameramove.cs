@@ -17,6 +17,7 @@ public class cameramove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // move based on the lvl varibale that gets updated based on another script
         um = 5.01f * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-4+5*lvl,transform.position.y,-2+8*hlvl), um);
         

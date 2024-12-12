@@ -17,8 +17,11 @@ public class mathtest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //spawn first vector
         v1 = new Vector3(Random.Range(0,10),Random.Range(0,10),Random.Range(0,10));
         v2 = new Vector3(Random.Range(0,10),Random.Range(0,10),Random.Range(0,10));
+        // the answer of the 2 vectors dotted
         theAnswer = Vector3.Dot(v1,v2);
         questoion.text = "What does Vector3.Dot(" + v1+"\n,"+v2+") equal?";
     }
@@ -28,10 +31,13 @@ public class mathtest : MonoBehaviour
     {
     }
     public void test(){
+        // if theres no answer fail the test
         if (answer.text == ""){
                         fail();
 
         }else{
+            //if answer is correct when parsed then go to next scene
+            //else fail
         if (float.Parse(answer.text) == theAnswer){
                 SceneManager.LoadScene(3);
         }else{
@@ -39,6 +45,7 @@ public class mathtest : MonoBehaviour
         }
         }
     }
+    //reload scene on fail
       void fail()
         {
            

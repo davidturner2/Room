@@ -14,6 +14,7 @@ public class queue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // add the children to the queue
         for (int i =0; i<transform.childCount; i++){
             people.Enqueue(transform.GetChild(i).GetComponent<enemy>().goal);
             print(people.ToArray()[i]);
@@ -26,10 +27,12 @@ public class queue : MonoBehaviour
         }
             }
     void poop(){
+        //deque one to off set the queue
        people.Enqueue(people.Dequeue());
        
 
         for (int i =0; i<transform.childCount; i++){
+            //start moving the enemy
                                                         transform.GetChild(i).GetComponent<enemy>().aaa = false;
 
             if(Vector3.Distance(transform.GetChild(i).GetComponent<enemy>().goal,leaveFirst)<=1){
@@ -81,6 +84,8 @@ public class queue : MonoBehaviour
         }
           
     }
+
+    // make a new queue but pause inbetween
     IEnumerator old(){
 for (int i = 0; i<transform.childCount; i++){
                 transform.GetChild(i).GetComponent<enemy>().goal=people.Dequeue();

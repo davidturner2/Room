@@ -13,30 +13,39 @@ public class medication : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // stop animtaion
         medcap.GetComponentInChildren<Animator>().Play("none");
     }
+
+    //when you enter the trigger zone
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Player")
         {
+            // enable the script for blasting off
             a.enabled = true;
+            //play the aniation
             medcap.GetComponentInChildren<Animator>().Play("open");
             if(evil){
+                // if this is an evil medication start spawning enemies
                 spawning = true;
                 StartCoroutine("endlessenemies");
             }else{
+                // move back to previous spot for seeing animation on regulare medication
                 other.GetComponent<movement>().moveback();
-
+                //destroy collider
                  Destroy(GetComponent<BoxCollider>());
 
             }
         }
     }
 
+    // disable spawning on exit
     private void OnTriggerExit(Collider other){
         if(other.tag == "Player" && evil){
             spawning = false;
         }
     }
+    //start spawning enemies every 5 seconds
     IEnumerator endlessenemies(){
         Instantiate(evilspawn,transform.GetChild(0).transform.position,evilspawn.transform.rotation);
         yield return new WaitForSeconds(5);
