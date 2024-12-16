@@ -11,6 +11,7 @@ public class spawncameras : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //spawn the camera triggers for moving the camera. in equal grid.
         for (int i = 0; i < 5; i++)
         {
             Instantiate(cameras, new Vector3(transform.position.x + i * 5, 1, 0), Quaternion.identity);

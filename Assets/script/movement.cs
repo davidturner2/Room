@@ -31,11 +31,35 @@ public class movement : MonoBehaviour
     public GameObject win;
     public GameObject lose;
     private Vector3 prev;
+    private Racer trolls;
+    public GameObject stoptryna;
+    Vector2 mover;
 
     // Start is called before the first frame update
+    public void Awake()
+    {
+        trolls = new Racer();
+        // input system
+        trolls.PCtrolls.move1.performed += ctx => mover = ctx.ReadValue<Vector2>();
+        trolls.PCtrolls.move1.canceled += ctx => mover = Vector2.zero;
+        trolls.PCtrolls.stop.performed += ctx => stoptryna.SetActive(true);
+        trolls.PCtrolls.stop.canceled += ctx => stoptryna.SetActive(false);
+    }
+
+
+    private void OnEnable()
+    {
+        trolls.PCtrolls.Enable();
+    }
+    private void OnDisable()
+    {
+        trolls.PCtrolls.Disable();
+    }
+
+
     void Start()
     {
-
+        
 
         movetothis = new Vector3(0f, 0.35f, 0f);
         StartCoroutine("begining");
@@ -44,7 +68,7 @@ public class movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         
+     print(mover);    
         if (start == true)
         {
 
@@ -77,8 +101,9 @@ public class movement : MonoBehaviour
         if (trol && stopdetecting == false)
         {
 
-            if (Input.GetKeyDown("up") && !cantup)
+            if (mover.y==1 && !cantup)
             {
+                mover = Vector2.zero;
                 if (ul && start)
                 {
                     cantleft = true;
@@ -101,8 +126,9 @@ public class movement : MonoBehaviour
                     prev = new Vector3(-1f, 0, 0f);
                 }
             }
-            else if (Input.GetKeyDown("down") && !cantdown)
+            else if (mover.y == -1 && !cantdown)
             {
+                mover = Vector2.zero;
                 if (dl && start)
                 {
                     cantleft = true;
@@ -125,8 +151,9 @@ public class movement : MonoBehaviour
                     prev = new Vector3(1f, 0, 0f);
                 }
             }
-            else if (Input.GetKeyDown("left") && !cantleft)
+            else if (mover.x == -1 && !cantleft)
             {
+                mover = Vector2.zero;
                 if (dl && start)
                 {
                     cantdown = true;
@@ -149,8 +176,9 @@ public class movement : MonoBehaviour
                     prev = new Vector3(0f, 0, -1f);
                 }
             }
-            else if (Input.GetKeyDown("right") && !cantright)
+            else if (mover.x == 1 && !cantright)
             {
+                mover = Vector2.zero;
                 if (dr && start)
                 {
                     cantdown = true;

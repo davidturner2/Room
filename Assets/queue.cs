@@ -27,7 +27,7 @@ public class queue : MonoBehaviour
         }
             }
     void poop(){
-        //deque one to off set the queue
+        //deque one and add to the start for offseting the queue
        people.Enqueue(people.Dequeue());
        
 
@@ -38,6 +38,7 @@ public class queue : MonoBehaviour
             if(Vector3.Distance(transform.GetChild(i).GetComponent<enemy>().goal,leaveFirst)<=1){
                 transform.GetChild(i).GetComponent<enemy>().n = true;
                                 transform.GetChild(i).GetComponent<enemy>().aaa = true;
+                //start rujnning these corutotines
         StartCoroutine("old");
         StartCoroutine("oldman");
 
@@ -56,9 +57,10 @@ public class queue : MonoBehaviour
     void Update()
     {
                 for (int i =0; i<transform.childCount; i++){
-
+                    //for the person thats close to the front of the line
                    if(Vector3.Distance(transform.GetChild(i).GetComponent<enemy>().goal,leaveFirst)<=1){
                     if (has_clicked == false){
+                    // set the child that needs to be clicked to have a red material
                     transform.GetChild(i).GetChild(0).GetChild(1).GetComponent<Renderer>().material.color =new Vector4(1f,0,0,1);
                     }
                    }else{
@@ -70,7 +72,7 @@ public class queue : MonoBehaviour
         Ray asadsfdg = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit lskdljf = new RaycastHit();
         if(Physics.Raycast(asadsfdg, out lskdljf)){
-            //print(lskdljf.collider.gameObject.tag);
+            // if pointing to the person near the front of the line and click run functions and set has clicked to true so you gotta wait until its false again.
             if (lskdljf.collider.gameObject.tag == "person" && Input.GetMouseButtonDown(0)){
                 if (Vector3.Distance(lskdljf.collider.gameObject.GetComponent<enemy>().goal,leaveFirst) <= 1 && has_clicked == false){
                     //print("Asdfff");
@@ -85,7 +87,7 @@ public class queue : MonoBehaviour
           
     }
 
-    // make a new queue but pause inbetween
+    // make a new queue but pause inbetween and wait until the front of the line person is close to the back to set the new goals for the people
     IEnumerator old(){
 for (int i = 0; i<transform.childCount; i++){
                 transform.GetChild(i).GetComponent<enemy>().goal=people.Dequeue();
@@ -110,6 +112,7 @@ for (int i = 0; i<transform.childCount; i++){
                                 transform.GetChild(i).GetComponent<enemy>().aaa = false;
 
             }
+          //set has click to false at the end of this
             has_clicked = false;
                 
     }

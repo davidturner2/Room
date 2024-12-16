@@ -18,6 +18,7 @@ public class imgonnakillyoutoo : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // if start pooping then move in the direction of the target
         if (startpooping){
            
             if(target.GetComponent<example>().boost == 2f){

@@ -16,10 +16,26 @@ public class whattheheck : MonoBehaviour
     int cool;
     List<GameObject> s = new List<GameObject>();
     // Start is called before the first frame update
-    void Start()
-    {
-       
+    private Racer trolls;
+    Vector2 mover;
 
+    // Start is called before the first frame update
+    public void Awake()
+    {
+        trolls = new Racer();
+        // input system
+        trolls.PCtrolls.move.performed += ctx => mover = ctx.ReadValue<Vector2>();
+        trolls.PCtrolls.move.canceled += ctx => mover = Vector2.zero;
+    }
+
+
+    private void OnEnable()
+    {
+        trolls.PCtrolls.Enable();
+    }
+    private void OnDisable()
+    {
+        trolls.PCtrolls.Disable();
     }
 
     // Update is called once per frame
@@ -34,8 +50,9 @@ public class whattheheck : MonoBehaviour
             player.transform.position = Vector3.Lerp(player.transform.position,s[cool].transform.GetChild(0).transform.position, um);
             player.transform.rotation = Quaternion.Lerp(player.transform.rotation, s[cool].transform.rotation, um);
 
-            if (Input.GetKeyDown("right"))
+            if (mover.x>0)
             {
+                mover = Vector2.zero;
                 if (cool >= gameObject.transform.childCount-1)
                 {
                                 //GameObject.FindWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 97;
@@ -53,8 +70,9 @@ public class whattheheck : MonoBehaviour
                     cool++;
                 }
             }
-            if (Input.GetKeyDown("left"))
+            if (mover.x<0)
             {
+                mover = Vector2.zero;
                 if (cool <= 0)
                 {
                                 //GameObject.FindWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 97;

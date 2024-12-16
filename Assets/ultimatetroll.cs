@@ -11,13 +11,35 @@ public class ultimatetroll : MonoBehaviour
     GameObject player;
     float timer = 0;
     bool start = false;
+    private Racer trolls;
     // Start is called before the first frame update
+
+    public void Awake()
+    {
+        trolls = new Racer();
+
+        trolls.PCtrolls.jump.performed += ctx => aump();
+
+    }
+
+    private void OnEnable()
+    {
+        trolls.PCtrolls.Enable();
+    }
+    private void OnDisable()
+    {
+        trolls.PCtrolls.Disable();
+    }
+
+
     void Start()
     {
+        
+
         troll.text = "";
     }
 
-//start counting down for the text
+// set start to teue
     private void OnTriggerEnter(Collider other){
         if ( other.tag=="Player"){
             player = other.gameObject;
@@ -25,7 +47,7 @@ public class ultimatetroll : MonoBehaviour
             
         }
     }
-    //on trigger enter
+    // when exit reset timer to zero and remove all text
     private void OnTriggerExit(Collider other){
         if ( other.tag=="Player"){
             start = false;
@@ -38,17 +60,22 @@ public class ultimatetroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //start counting down and displaying the text with the timer when start is true else if the player doesnt exist remove all text
         if(start && GameObject.FindWithTag("Player")!= null){
                 timer += Time.deltaTime;
                 troll.text = "Stand here for: "+(7-Mathf.RoundToInt(timer))+" seconds to get the real ending!\U0001F947\U0001F480\U0001F480\U0001F480\U0001F480\U0001F480\U0001F480";
 
         }else{
             troll.text = "";
-             if (Input.GetKeyDown("space")&& GameObject.FindWithTag("Player")== null)
-            {
-                SceneManager.LoadScene(2);
-            }
+             
+        }
+    }
+    // when player is deleted load scene 2
+    void aump()
+    {
+        if (GameObject.FindWithTag("Player") == null)
+        {
+            SceneManager.LoadScene(2);
         }
     }
 

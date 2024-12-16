@@ -54,9 +54,13 @@ public class walk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        // i had to remove the cameras influence on the player you can only go forward left right and backwards without rotating.
+
+
         // movement vecot for position
         Vector3 ad = new Vector3(mover.x, 0, mover.y);
-        // movement vector based on the curve
+        // rotation vector based on the curve but the y set to zero so its staraigtht
             Vector3 ad3 = new Vector3(HELPMEEEE.eulerAngles.x, 0, HELPMEEEE.eulerAngles.z);
 
 
@@ -64,14 +68,17 @@ public class walk : MonoBehaviour
        // print(distance(child.transform.rotation.eulerAngles.x, 0)+" distance");
 
         // print(mover.y);
+
         // approximate to set the rotation straight or based on curve so you dont rotate in the wrong direction
         if (ad != Vector3.zero){
+            // angle of less than 10 on the x and z axis to start rotating towards the straight rotation vector converted to quaternion 
             if (distance(child.transform.rotation.eulerAngles.x, 0) <= 10 && distance(child.transform.rotation.eulerAngles.z, 0) <= 10)
             {
                 child.transform.rotation = Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), 150.01f * Time.deltaTime);
             }
             else
             {
+                // just set the rotation to it without rotating towards it.
                 child.transform.rotation = HELPMEEEE;//Quaternion.RotateTowards(child.transform.rotation, Quaternion.Euler(ad3), accel * Time.deltaTime);
             }
             // set velocity to the rotation times the movment vector times the speed 
@@ -107,12 +114,13 @@ public class walk : MonoBehaviour
             //Vector3 ra = new Vector3(movetothis.x - 0.3f, movetothis.y + 0.3f, movetothis.z);
        if (Physics.Raycast(movetothis, child.transform.rotation*(Vector3.down), out down, 2f))
         {
+            // raycast detects a collider that is a curve then set curve to true else false
             if(down.collider.tag == "curve"){
                 curve = true;
             }else{
                 curve = false;
             }
-            // set the rotation to rotate towards the from to rotation of the normals based on the transform of the player mulitplied by the current player rotation
+            //set the quaternion helpmeeee to rotate towards from the player rotation to the from to rotation of the normals from the [;auer] transorm.up based on the transform of the player mulitplied by the current player rotation
             Debug.DrawRay(movetothis, child.transform.rotation*(Vector3.down) * down.distance, Color.yellow);
             HELPMEEEE = Quaternion.RotateTowards(child.transform.rotation,Quaternion.FromToRotation(child.transform.up,down.normal)*child.transform.rotation,150.01f * Time.deltaTime);
 
@@ -171,7 +179,8 @@ public class walk : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().AddForce(40*transform.forward,ForceMode.Impulse);
         }
     }
-    
+
+    //distince for angles and I forgot what this was called from trignonmenty class but i want to return the same angles everytime.
     float distance(float xi,float xf)
     {
         if (xi > 180)

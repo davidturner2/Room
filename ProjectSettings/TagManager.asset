@@ -9,6 +9,7 @@ TagManager:
   - wall
   - curve
   - person
+  - asdf
   layers:
   - Default
   - TransparentFX

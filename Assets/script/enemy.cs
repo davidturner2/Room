@@ -14,7 +14,9 @@ public class enemy : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //set goal to the transform position
         goal = transform.position;
+        // get the navmesh ageny
         agent = GetComponent<NavMeshAgent>();
         n = true;
     }
@@ -26,6 +28,7 @@ public class enemy : MonoBehaviour
          
         }
         //print(agent.remainingDistance);
+        //if aaa is true then start moving to the goal
         if (aaa){
         agent.destination = goal;
         }

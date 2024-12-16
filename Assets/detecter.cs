@@ -16,6 +16,7 @@ public class detecter : MonoBehaviour
     {
         
     }
+    // detect if in collider or outside of collider for the imgonnakillyou to set startpooping to true.
        void OnTriggerEnter(Collider other){
     if (other.tag=="Player"){
         o.startpooping = true;

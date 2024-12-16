@@ -28,7 +28,7 @@ public class killingtoday : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         
+         //map position to moyse position
         transform.position = new Vector3(map(Input.mousePosition.x,0,Screen.width,150.4f,550),transform.position.y,transform.position.z);
         if(yuh){
         steppers += 1700*Time.deltaTime/9.009f;
@@ -39,16 +39,19 @@ public class killingtoday : MonoBehaviour
         if (Physics.Raycast(ra, transform.TransformDirection(Vector3.forward), out down, steppers)&&!diedied)
         {
             reseter(ra);
+                // if ray cast colides with object with the tag player then lose
             if(down.collider.gameObject.tag == "Player"){
                                     score.text="";
 
                 Destroy(gameObject);
                Destroy( asadssffs);
                                     lose.SetActive(true);
-
+                    // move camera away from everytghing
                 Camera.main.transform.position+=Vector3.forward*9999;
             }else{
+                    //increasr the scoerre
                 soccer++;
+                    // set the score text 
                 score.text = soccer+"/"+"5 Objects destroyed";
                 if(soccer >= 5){
                     score.text="";
@@ -66,11 +69,14 @@ public class killingtoday : MonoBehaviour
         else
         {
             Debug.DrawRay(ra, transform.TransformDirection(Vector3.forward) * steppers, Color.white);
+                
             GetComponent<LineRenderer>().startColor = Color.yellow;
             GetComponent<LineRenderer>().endColor = Color.blue;
 
             GetComponent<LineRenderer>().SetPosition(0,ra);//, , Color.yellow);
+                // increase line renderer lengtgh by steppers keep going up
             GetComponent<LineRenderer>().SetPosition(1,ra+transform.TransformDirection(Vector3.forward) * steppers);
+                //maximum height is 230 reset everything and the colorss
             if(steppers>=230){
                             reseter(ra);
 
@@ -80,6 +86,7 @@ public class killingtoday : MonoBehaviour
             Destroy(gameObject);
         }
         }
+        // whhen click set yuh to true change material color
         if(Input.GetMouseButtonDown(0)){
              GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
             yuh = true;
